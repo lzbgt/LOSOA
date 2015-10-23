@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+<!--<link href="css/base.css" rel="stylesheet" type="text/css" />-->
+<!--<link href="css/master.css" rel="stylesheet" type="text/css" />-->
+<!--<link href="css/addition.css" rel="stylesheet" type="text/css" />-->
+<script src="leitherapi.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-ui-router.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.jtabs.js"></script>
+<script src="js/easydialog.min.js"></script>
+<script src="js/jquery.colorbox.js"></script>
+<script src="js/FileSaver.min.js"></script>
+<script src="js/oa-all-css.js"></script>
+<script src="js/oa-html-res.js"></script>
+<script src="js/oa-file-html.js"></script>
+<script src="js/oa-all-js.js"></script>
+<script src="js/lodash.min.js"></script>
+<script src="js/angularjs-dropdown-multiselect.js"></script>
+<script src="js/marked.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
+<script src="js/ui-bootstrap-tpls.js"></script>
+<script src="js/jquery.lazyload.js"></script>
+<script src='./app.js'></script>
+<script src='app/task.js'></script>
+<script src='app/fileApp.js'></script>
+<script src='app/oa_sign_js.js'></script>
+
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
+<script type="text/javascript">
+function getInitG() {
+        return {
+            //AppData
+            SystemBid: "6OkFeZw0sk3p0S0UrAPX0TJfhpabpgNIr-IgVGoRiZQ",
+            Log: true,
+            AppVer: "last",
+            AppName: "OA",
+            IPList: ["121.43.154.122:8866"],
+            AppBid: "Rkn_ppdfecmTFHxd_wCpx1f27EdgOM4iVSMT3KJoUPk",
+            Local: true,
+           	userid: "_pKoW1fDV2aukf36DrB4Stwct3pWK4RnTnOF2mMbf8k",
+
+			//AppData End
+            IPNum: 0
+        };
+    }
+
+function getUrlPara(){
+		var url = location.href;
+		var paraObj = {}  ;
+    var paramMark = url.indexOf("?");
+		if(paramMark != -1){
+      var routeMark = url.indexOf("#");
+      if(routeMark != -1){
+        if(paramMark < routeMark) {
+          url = url.slice(0, routeMark);
+        }
+      }
+		  var paraString = url.substring(paramMark+1,url.length).split("&");
+		  for (i=0; j=paraString[i]; i++){
+		    paraObj[j.substring(0,j.indexOf("="))] = j.substring(j.indexOf("=")+1,j.length);
+		  }
+		}
+		return	paraObj;
+	}
+
+function LoadLeither(I) {
+	var urlParam= getUrlPara();
+	for( var name in urlParam) {
+	if(name=="ip"){
+	I["IPList"]=[urlParam[name]];
+	}else{
+	I[name]=urlParam[name];
+	}
+	}
+  if(I.clearcache) {
+    console.log("clear cache")
+    indexedDB.deleteDatabase("LeitherApi");
+    localStorage.clear();
+  }
+	console.log(I);
+    IP = I.IPList[I.IPNum]; //这样好象没检查ip
+    if (typeof (RunApp) == "function") {
+        RunApp(I, 0);
+        return;
+    }
+    leitherApi = localStorage["leitherApi"];
+    if (leitherApi) {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.textContent = localStorage["leitherApi"];
+        document.getElementsByTagName("head")[0].appendChild(script);
+        RunApp(I, 0);
+        return;
+    }
+    LoadJsByIpAndName(IP, I.SystemBid, "LeitherApi", "last", function () {
+        RunApp(I, 0);
+    }, getFuncFail(I));
+
+};
+function getFuncFail(I) {
+    return function () {
+        I.IPNum++;
+        if (I.IPNum >= I.IPList.length) {
+            console.log("Leither 初始化失败");
+            return;
+        }
+        LoadLeither(I);
+    };
+};
+
+function LoadJsByURL(url, Success, Fail) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = "async";
+    if (script.readyState) {
+        script.onreadystatechange = function () {
+            if (script.readyState == "loaded" || script.readyState == "complete") {
+                script.onreadystatechange = null;
+                Success();
+            };
+        };
+    } else {
+        script.onload = function () {
+            Success();
+        };
+    };
+    script.addEventListener("error", function () {
+        Fail();
+    });
+    script.src = url;
+    document.getElementsByTagName("head")[0].appendChild(script); 	//load Leither first
+};
+function LoadJsByIpAndName(ip, bid, name, ver, Success, Fail) {
+    url = 'http://' + ip + '/loadres?type=application/javascript&bid=' + bid + '&name=' + name + '&ver=' + ver;
+    LoadJsByURL(url, Success, Fail);
+};
+LoadLeither(getInitG());
+</script>
+</head>
+
+<title>LeitherApp</title>
+<body id="LeitherBody"></body>
+</html>
