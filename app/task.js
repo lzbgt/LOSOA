@@ -589,21 +589,38 @@ function initSysAPI(Apps, $, Cfg) {
                 k = a.length + b.length;
 
             function checkab(a, field, i, j) {
-                while (typeof(a[i][field]) == 'undefined') {
+                while (a[i]!== undefined && typeof(a[i][field]) == 'undefined') {
                     debug.warn("member ", field, "not defined in: ", a[i]);
                     i--;
                 }
-                while (typeof(b[j][field]) == 'undefined') {
+                while (b[j]!==undefined &&typeof(b[j][field]) == 'undefined') {
                     debug.warn("member ", field, "not defined in: ", b[i]);
                     j--;
                 }
 
-                return {flag: (a[i][field] >= b[j][field]), ti: i, tj: j};
+                var flag = 0;
+                if(!a[i]) flag = -1;
+                if(!b[j]) flag = 1;
+
+                var ret = false;
+                if(flag > 0) {
+                    ret = true;
+                }else if(flag < 0){
+                    ret = false;
+                }else{
+                    ret = (a[i][field] >= b[j][field]);
+                }
+
+                return {flag: ret, ti: i, tj: j};
             }
 
-            var obj;
+            var obj = {flag: false, ti:99, tj:99};
             while (k > 0) {
-                obj = checkab(a, field, i, j);
+                if(i >= 0) {
+                    obj = checkab(a, field, i, j);
+                }else {
+                    obj.flag = false;
+                }
                 answer[--k] =  (j < 0 || (i >= 0 && obj.flag && ((i = obj.ti) !== null &&(j=obj.tj) !== null))) ? a[i--] : b[j--];
             }
 
@@ -611,7 +628,7 @@ function initSysAPI(Apps, $, Cfg) {
         };
         //
     OAApp.adminUsers = [ {
-        uid: 'jUZmhuQUXKQT2fE5CywqOv7pdfOSmgMvgD_Ppmu438w',
+        uid: 'M5pB6BlrAvbtz1z6bo52Z05FAu7NIy0NbKhPXxqMltI',
         fullName: "Bruce的自用测试",
         nickName: "测试",
         email: "rikusouhou@gmail.com",

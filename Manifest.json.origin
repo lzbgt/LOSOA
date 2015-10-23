@@ -1,0 +1,17 @@
+{
+    "AppName":"OA",
+    "ResFile":[
+        "js/jquery.min.js","js/angular.min.js","js/angular-ui-router.min.js","app.js","js/FileSaver.min.js","js/oa-all-css.js","js/oa-html-res.js",
+        "js/oa-file-html.js","js/oa-all-js.js","js/lodash.min.js","js/angularjs-dropdown-multiselect.js","js/marked.min.js",
+        "js/angular-sanitize.js","js/ui-bootstrap-tpls.js","app/task.js","app/fileApp.js","app/oa_sign_js.js"
+        ],
+    "ResName":[
+        "jquery", "angular","ui.router", "app","FileSaver","all-css","html-res","file-html","all-js","lodash","multiselect","marked",
+        "sanitize","bootstrap-tpls","task","fileApp","sign_js"
+    ],
+    "Res":{
+        "ID":"M5pB6BlrAvbtz1z6bo52Z05FAu7NIy0NbKhPXxqMltI",
+        "PPT":"",
+        "URL":"http://121.43.154.122:9001"
+    }
+}

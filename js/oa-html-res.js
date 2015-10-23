@@ -380,15 +380,15 @@ var mainhtml = `
 	   <dl>
 		 <dt class="c-999">今天</dt>
 		 <dd ng-repeat=" sign in todaysign track by $index" ng-switch="sign.status" >
-		 <span ng-switch-when="签到" ng-if="$index<4">@{{sign.name}}<span class="ml10">{{sign.signtime | formatTime}}</span><span class="ml10">在<i class="tb location"></i>{{sign.address}}</span><span class="ml10 c-zi">{{sign.status}}</span> </span>
-		 <span ng-switch-when="签退" ng-if="$index<4">@{{sign.name}}<span class="ml10">{{sign.workofftime | formatTime}}</span><span class="ml10">在<i class="tb location"></i>{{sign.address}}</span><span class="ml10 c-zi">{{sign.status}}</span> </span>
+		 <span ng-switch-when="签到" ng-if="$index<4">@{{sign.name}}<span class="ml10">{{sign.signtime | formatTime}}</span><span class="ml10">在<i class="tb location"></i>{{sign.address}}</span><span class="ml10 c-zi" style="cursor:default ">{{sign.status}}</span> </span>
+		 <span ng-switch-when="签退" ng-if="$index<4">@{{sign.name}}<span class="ml10">{{sign.workofftime | formatTime}}</span><span class="ml10">在<i class="tb location"></i>{{sign.address}}</span><span class="ml10 c-zi" style="cursor:default ">{{sign.status}}</span> </span>
 		 </dd>
 		 </dl>
 	   <dl class="mt20">
 		 <dt class="c-999">昨天</dt>
 		 <dd ng-repeat=" sign in yesterdaysign track by $index" ng-switch="sign.status">
-		 <span  ng-switch-when="签到" ng-if="$index<4">@{{sign.name}}<span class="ml10">{{sign.signtime | formatTime}}</span><span class="ml10">在<i class="tb location"></i>{{sign.address}}</span><span class="ml10 c-zi">{{sign.status}}</span></span>
-		 <span  ng-switch-when="签退" ng-if="$index<4">@{{sign.name}}<span class="ml10">{{sign.workofftime | formatTime}}</span><span class="ml10">在<i class="tb location"></i>{{sign.address}}</span><span class="ml10 c-zi">{{sign.status}}</span></span>
+		 <span  ng-switch-when="签到" ng-if="$index<4">@{{sign.name}}<span class="ml10">{{sign.signtime | formatTime}}</span><span class="ml10">在<i class="tb location"></i>{{sign.address}}</span><span class="ml10 c-zi" style="cursor:default ">{{sign.status}}</span></span>
+		 <span  ng-switch-when="签退" ng-if="$index<4">@{{sign.name}}<span class="ml10">{{sign.workofftime | formatTime}}</span><span class="ml10">在<i class="tb location"></i>{{sign.address}}</span><span class="ml10 c-zi" style="cursor:default ">{{sign.status}}</span></span>
 		 </dd>
 		 </dl>
   </div>
